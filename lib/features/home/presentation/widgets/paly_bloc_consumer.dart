@@ -28,7 +28,6 @@ class _PlayBlocConsumerState extends State<PlayBlocConsumer> {
           customShowDialogError(context, state.errorMassage);
         } else if (state is OneQuestionWin) {
           isWin = true;
-        //  playSound('sound/win.mp3');
           BlocProvider.of<QuestionsCubit>(context).yourLevel++;
           int yourLevel = BlocProvider.of<QuestionsCubit>(context).yourLevel;
           if (yourLevel == 9) {

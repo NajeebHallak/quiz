@@ -78,17 +78,18 @@ class TheCorrectAnswerContainer extends StatelessWidget {
       context,
       'Your answer is correct!!',
       () {
+        yourLevel++;
         BlocProvider.of<OneQuestionCubit>(context)
-            .fetchOneQuestion(index: yourLevel + 1);
+            .fetchOneQuestion(index: yourLevel);
         context.pushReplacement(AppPageName.playPage);
       },
       () {
         Box<int> boxResult = Hive.box(Constans.boxResultsNumber);
         incrementValue(boxResult, -10, 1);
 
-        yourLevel--;
         BlocProvider.of<OneQuestionCubit>(context)
             .fetchOneQuestion(index: yourLevel);
+        BlocProvider.of<QuestionsCubit>(context).yourLevel--;
         context.pushReplacement(AppPageName.playPage);
       },
     );
@@ -105,7 +106,5 @@ class TheCorrectAnswerContainer extends StatelessWidget {
   Future<void> playSound() async {
     final player = AudioPlayer();
     await player.play(AssetSource('audio/win.mp3'));
-
-    //  player.stop();
   }
 }
